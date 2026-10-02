@@ -19,7 +19,7 @@ class TimestampMixin(Base):
     __abstract__ = True
 
     created_at : Mapped[datetime] = mapped_column(DateTime(timezone=True),server_default=func.now(),nullable=False)
-    created_at : Mapped[datetime] = mapped_column(DateTime(timezone=True),server_default=func.now(),onupdate=func.now(),nullable=False)
+    updated_at : Mapped[datetime] = mapped_column(DateTime(timezone=True),server_default=func.now(),onupdate=func.now(),nullable=False)
 
 
     config = False
@@ -33,6 +33,7 @@ class User(TimestampMixin):
                                            )
 
     username : Mapped[str] = mapped_column(String(255),nullable=False,unique=True)
+    password : Mapped[str] = mapped_column(String(255),nullable=False)
     email : Mapped[str] = mapped_column(String(100),nullable=False,unique=True)
     last_login : Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True),default=None)
     is_active : Mapped[bool] = mapped_column(Boolean,default=True)
